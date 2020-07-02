@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "idse"
+version = "0.1.0"
+description = "Interactive data structure editing"
+authors = ["Kris <31852063+krisfris@users.noreply.github.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Click = "^7.1.2"
+pyqt5 = "5.12"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+idse = 'idse.cli:cli'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
