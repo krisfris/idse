@@ -42,3 +42,29 @@ def edit_dict(ctx, data, json_, item_sep, key_value_sep):
 
     if r is not None:
         click.echo(serializer.dumps(r))
+
+
+@cli.command()
+@click.pass_context
+@click.option('--data', default='')
+@click.option('--sep', default=',')
+def color(ctx, data, sep):
+    d = QColor(*[int(x) for x in data.split(sep)]) if data else QColor()
+    r = QColorDialog.getColor(d, None, 'Select Color', QColorDialog.ShowAlphaChannel)
+    if r.isValid():
+        click.echo(','.join(str(x) for x in r.getRgb()))
+
+
+@cli.command()
+@click.pass_context
+@click.option('--data', default='')
+@click.option('--sep', default=',')
+@click.option('--pos', default=None)
+@click.option('--pos-sep', default=',')
+def context(ctx, data, sep, pos, pos_sep):
+    menu = QMenu(None)
+    actions = [menu.addAction(x) for x in data.split(sep)]
+    pos = QCursor.pos() if pos is None else QPoint(*[int(x) for x in pos.split(pos_sep)])
+    r = menu.exec_(pos)
+    if r:
+        click.echo(r.text())
